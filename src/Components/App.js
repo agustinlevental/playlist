@@ -3,6 +3,9 @@ import {SearchBar} from './SearchBar/SearchBar.jsx'
 import {SearchResults} from "./SearchResults/SearchResults.jsx"
 import {Playlist} from "./Playlist/Playlist.jsx";
 import app from "./app.css";
+import {Spotify} from "./Spotify";
+
+
 
 export class App extends React.Component {
   constructor (props) {
@@ -50,10 +53,18 @@ export class App extends React.Component {
 ]
   
 }
+// --------------------------------- BIND-------------------------------------------
+
 this.addTrack = this.addTrack.bind(this)
 // Bindeas el metodo que agregas usando this. al principio y como argumento!!!
   
 this.removeTrack= this.removeTrack.bind (this)
+
+this.updatePlaylistName= this.updatePlaylistName (this)
+this.savePlaylist = this.savePlaylist.bind (this)
+this.search = this.search.bind (this)
+// --------------------------------- BIND-------------------------------------------
+
 }
 
   addTrack (track) {
@@ -62,7 +73,7 @@ this.removeTrack= this.removeTrack.bind (this)
      element.id === track.id)) {
       return }
 
-      else {tracks.push(track)} 
+       tracks.push(track)
       this.setState({playlistTracks: tracks})
       // dentro del metodo add track actualiza el estado,  sigue siendo el mismo estado this,state,playlistTrack pero actualizado
       // despues de cargarle un track
@@ -75,16 +86,41 @@ this.removeTrack= this.removeTrack.bind (this)
       this.setState ({playlistTracks : tracks})
     }
 
+    updatePlaylistName (name){
+       this.setState({playlistName : name})
+    }
 
+    savePlaylist () { 
+      
+      const trackUris = this.state.playlistTracks.map ( track => track.uri) 
+// mapeo con este metodo para saber la uri de cada track, todavia el estado no tiene uri, pero los tendra mas adelante
+      Spotify.savePlaylist(this.state.playlistName, trackUris). then(() => {
+        this.setState ( {
+          playlistName: "New Playlist" ,
+          playlistTracks: []
+        })
+      })
+
+}
+
+    search(term) { 
+      Spotify.search(term). then (searchResults => {
+       this.setState ({searchResults: searchResults})
+      //  ahora el state de searchresult de app va a ser igual a la respuesta del servidos de spotify
+     })
+      
+    } 
 
   render() {
+  
   return (
+    
     <div>
 
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
 
-      <SearchBar></SearchBar>
+      <SearchBar onSearch= {this.search}></SearchBar>
       
 
       <div className="App-playlist">
@@ -92,7 +128,11 @@ this.removeTrack= this.removeTrack.bind (this)
    </SearchResults>
    
    <Playlist playlistName={this.state.playlistName} 
-   playlistTracks= {this.state.playlistTracks} onRemove = {this.removeTrack}> </Playlist>
+   playlistTracks= {this.state.playlistTracks}
+    onRemove = {this.removeTrack} 
+    tracks= {this.state.searchResults} 
+    onNameChange= {this.updatePlaylistName}
+    onSave= {this.savePlaylist}> </Playlist>
    
 
       </div>
@@ -103,3 +143,4 @@ this.removeTrack= this.removeTrack.bind (this)
     )
     }
     }
+    
