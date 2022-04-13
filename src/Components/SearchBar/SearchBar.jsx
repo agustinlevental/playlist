@@ -1,4 +1,4 @@
-import { toHaveStyle } from '@testing-library/jest-dom/dist/matchers';
+
 import React from 'react';
 import Searchbar from "./Searchbar.css"
 
@@ -16,7 +16,7 @@ export class SearchBar extends React.Component {
   }
 
   search () { 
-    this.props.onSearch(this.props.term)
+    this.props.onSearch(this.state.term)
   }
 
   handleTermChange (event) { 
@@ -26,8 +26,8 @@ export class SearchBar extends React.Component {
 
 render () { return (
 <div className="SearchBar">
-  <input placeholder="Enter A Song, Album, or Artist" onChange ={this.handleTermChange} />
-  <button className="SearchButton">SEARCH</button>
+  <input placeholder="Enter A Song, Album, or Artist"   onChange={this.handleTermChange}  />
+  <button className="SearchButton" onClick={this.search} >SEARCH</button>
  </div>
 )
   }
