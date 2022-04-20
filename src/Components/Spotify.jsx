@@ -1,6 +1,6 @@
 
  const clientID = "ca7a5a4ef3214cb0adb569b6433e64b3";
-const redirectURI = "http://localhost:3000";
+const redirectURI = "https://jammming-playlist.vercel.app/";
 
 let accessToken;
 
