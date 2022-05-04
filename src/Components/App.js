@@ -87,7 +87,7 @@ this.search = this.search.bind (this)
     
     <div>
 
-      <h1>Ja<spgit className="highlight">mmm</span>ing</h1>
+      <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
 
       <SearchBar onSearch= {this.search}></SearchBar>  
