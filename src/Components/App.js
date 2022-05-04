@@ -31,13 +31,7 @@ this.search = this.search.bind (this)
 }
 
     componentDidMount() {
-  window.addEventListener('load', () => {
-  alert("anda el coso")
-    Spotify.getAccessToken().then(
-    (response) => {alert("token obtenido")},
-    (error) => {alert("error al obtener el token")},
-    ()=>{alert("termino")}
-    )});
+  window.addEventListener('load', () => {Spotify.getAccessToken()});
  
     }
 
@@ -78,9 +72,8 @@ this.search = this.search.bind (this)
 }
 
     search(term) { 
-     
+     debugger
       Spotify.search(term).then(searchResults => {
-      
        this.setState ({searchResults: searchResults})
       
      
@@ -94,7 +87,7 @@ this.search = this.search.bind (this)
     
     <div>
 
-      <h1>Ja<span className="highlight">mmm</span>ing</h1>
+      <h1>Ja<spgit className="highlight">mmm</span>ing</h1>
       <div className="App">
 
       <SearchBar onSearch= {this.search}></SearchBar>  
