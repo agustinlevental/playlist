@@ -30,6 +30,19 @@ this.search = this.search.bind (this)
 
 }
 
+    componentDidMount() {
+  window.addEventListener('load', () => {
+  alert("anda el coso")
+    Spotify.getAccessToken().then(
+    (response) => {alert("token obtenido")},
+    (error) => {alert("error al obtener el token")},
+    ()=>{alert("termino")}
+    )});
+ 
+    }
+
+   
+
   addTrack (track) {
     let tracks = this.state.playlistTracks;
     if (tracks.find(element =>  
@@ -65,8 +78,11 @@ this.search = this.search.bind (this)
 }
 
     search(term) { 
-      Spotify.search(term). then (searchResults => {
+     
+      Spotify.search(term).then(searchResults => {
+      
        this.setState ({searchResults: searchResults})
+      
      
      })
       
