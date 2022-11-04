@@ -1,2 +1,2 @@
-Disponible online en https://jammming-playlist.vercel.app/ 
+available online at https://jammming-playlist.vercel.app/ 
 
