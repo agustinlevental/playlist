@@ -1,18 +1,19 @@
 import React from 'react';
-import {TrackList} from "../TrackList/Tracklist.jsx";
-import Searchresults from "./Searchresults.css"
+import './Searchresults.css'; 
+import { TrackList } from '../TrackList/Tracklist.jsx';
 
+function SearchResults(props) {
+  return (
+    <div className="SearchResults">
+      <h2>Results</h2>
+      <TrackList
+        tracks={props.searchResults}
+        onAdd={props.onAdd}
+        isRemoval={false}
+      />
+    </div>
+  );
+}
 
-export class SearchResults extends React.Component {
-
-    render() {
-      return (
-        <div className="SearchResults">
-  <h2>Results</h2>
-  <TrackList tracks= {this.props.searchResults} onAdd = {this.props.onAdd} isRemoval= {false}></TrackList>
-
-</div>
-      )
-    }
-  }
+export default SearchResults;
 
